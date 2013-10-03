@@ -22,7 +22,7 @@ params = pnbd.EstimateParameters(data_cal_fail)
 # log likelihood calculation blows up.
 
 # The problem is in the way the log likelihood is computed with pnbd.LL
-pnbd.LL(params, 4, 10058, 77.85714)
+pnbd.LL(params, 600, 100, 120)
 # [1] NaN
 # Warning message:
 #   In log(F1 - F2) : NaNs produced
@@ -83,6 +83,6 @@ pnbd.LL(params, 4, 58, 77.85714)
 # [1] -17.72723
 pnbd.LL2(params, 4, 58, 77.85714)
 # [1] -17.73464
-pnbd.LL2(params, 4, 10058, 77.85714)
-# [1] -17.92619
+pnbd.LL2(params, 600, 100, 120)
+# [1] 395.4643
 
