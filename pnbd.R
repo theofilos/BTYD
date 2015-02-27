@@ -3,6 +3,23 @@
 
 library(gsl)
 
+h2f1 <- function(a,b,c,z){
+    lenz <- length(z)
+    j = 0
+    uj <- 1:lenz
+    uj <- uj/uj
+    y <- uj
+    lteps <- 0
+    while (lteps<lenz){
+        lasty <- y
+        j <- j+1
+        uj <- uj*(a+j-1)*(b+j-1)/(c+j-1)*z/j
+        y <- y + uj
+        lteps <- sum(y==lasty)
+    }
+    y
+}
+
 pnbd.cbs.LL <- function(params, cal.cbs) {
     
     dc.check.model.params(c("r", "alpha", "s", "beta"), params, "pnbd.cbs.LL")
