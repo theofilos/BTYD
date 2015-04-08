@@ -11,10 +11,8 @@ Factor out the offending term:
 Combine terms with the same exponents:
 ![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B%5CGamma%28r%2Bx%29%5Calpha%5Er%5Cbeta%5Es%7D%7B%5CGamma%28r%29%7D%5Cfrac%7B1%7D%7B%28%5Calpha%2BT%29%5E%7Br%2Bx%7D%28%5Cbeta%2BT%29%5Es%7D%5Cleft%5C%7B1%2B%5Cleft%28%5Cfrac%7Bs%7D%7Br%2Bs%2Bx%5Cright%29%5Cleft%28%5Cleft%28%5Cleft%5Cfrac%7B%5Calpha%2BT%7D%7B%5Calpha%2Bt_x%7D%5Cright%29%5E%7Br%2Bx%7D%5Cleft%28%5Cfrac%7B%5Cbeta%2BT%7D%7B%5Calpha%2Bt_x%7D%5Cright%29%5Es2F1%28...%29-%5Cleft%28%5Cfrac%7B%5Cbeta%2BT%7D%7B%5Calpha%2BT%7D%5Cright%29%5Es2F1%28...%29%5Cright%29%5Cright%5C%7D&bc=White&fc=Blue&im=jpg&fs=12&ff=arev&edit=0)
 
-The term ![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B%5Calpha%2BT%7D%7B%5Calpha%2Bt_x%7D&bc=White&fc=Blue&im=jpg&fs=12&ff=arev&edit=0) is very close to one so it can be exponentiated.
+The term (a+t_x)/(a+T) is very close to one so it can be exponentiated
 
-We take the logarithm of ![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B1%7D%7B%28%5Calpha%2BT%29%5E%7Br%2Bx%7D%28%5Cbeta%2BT%29%5Es%7D&bc=White&fc=Blue&im=jpg&fs=12&ff=arev&edit=0) so it does not blow up even if x is large.
-
-
+We take the logarithm of 1/(a+T)^(r+x)/(b+T)^s so it does not blow up even if x is large.
 
 The error is demonstrtated in fix_btyd.R, corrected and tested on the data set of the package. The corrected R code is in pnbd.R
