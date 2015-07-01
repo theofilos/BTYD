@@ -281,6 +281,7 @@ pnbd.ConditionalExpectedTransactions <- function(params, T.star, x, t.x,
     return(P1 * P2 * P3)
 }
 
+# pnbd.PAlive was contributed by Ricardo Pereira
 pnbd.PAlive <- function(params, x, t.x, T.cal) {
     
     max.length <- max(length(x), length(t.x), length(T.cal))
@@ -317,15 +318,22 @@ pnbd.PAlive <- function(params, x, t.x, T.cal) {
             t.x))
         F2 <- hyperg_2F1(r + s + x, s + 1, r + s + x + 1, (alpha - beta)/(alpha + 
             T.cal))
-        A0 <- F1/((alpha + t.x)^(r + s + x)) - F2/((alpha + T.cal)^(r + s + x))
+#        A0 <- F1/((alpha + t.x)^(r + s + x)) - F2/((alpha + T.cal)^(r + s + x))
+         X1 <- F1*((alpha+T.cal)/(alpha+t.x))^(r+x)*((beta+T.cal)/(alfa+t.x))^s
+         X2 <- F2*((beta+T.cal)/(alpha+T.cal))^s
+ 
     } else {
         F1 <- hyperg_2F1(r + s + x, r + x, r + s + x + 1, (beta - alpha)/(beta + 
             t.x))
         F2 <- hyperg_2F1(r + s + x, r + x, r + s + x + 1, (beta - alpha)/(beta + 
             T.cal))
-        A0 <- F1/((beta + t.x)^(r + s + x)) - F2/((beta + T.cal)^(r + s + x))
+#       A0 <- F1/((beta + t.x)^(r + s + x)) - F2/((beta + T.cal)^(r + s + x))
+        X1 <- F1*((alpha+T.cal)/(beta+t.x))^(r+x)*((beta+T.cal)/(beta+t.x))^s
+        X2 <- F2*((alpha+T.cal)/(beta+T.cal))^(r+x)
+        return((1 + s/(r + s + x) * (X1-X2))^(-1))
     }
-    return((1 + s/(r + s + x) * (alpha + T.cal)^(r + x) * (beta + T.cal)^s * A0)^(-1))
+#    return((1 + s/(r + s + x) * (alpha + T.cal)^(r + x) * (beta + T.cal)^s * A0)^(-1))
+     return((1 + s/(r + s + x) * (X1-X2))^(-1))
 }
 
 pnbd.Expectation <- function(params, t) {
@@ -799,59 +807,3 @@ pnbd.Plot.DERT <- function(params, x, t.x, T.cal, d, type = "wireframe") {
     return(DERT)
 }
 
-# pnbd.PAlive was contributed by Ricardo Pereira
-pnbd.PAlive <- function(params, x, t.x, T.cal) {
-    
-    max.length <- max(length(x), length(t.x), length(T.cal))
-    
-    if (max.length%%length(x)) 
-        warning("Maximum vector length not a multiple of the length of x")
-    if (max.length%%length(t.x)) 
-        warning("Maximum vector length not a multiple of the length of t.x")
-    if (max.length%%length(T.cal)) 
-        warning("Maximum vector length not a multiple of the length of T.cal")
-    
-    dc.check.model.params(c("r", "alpha", "s", "beta"), params, "pnbd.PAlive")
-    
-    if (any(x < 0) || !is.numeric(x)) 
-        stop("x must be numeric and may not contain negative numbers.")
-    if (any(t.x < 0) || !is.numeric(t.x)) 
-        stop("t.x must be numeric and may not contain negative numbers.")
-    if (any(T.cal < 0) || !is.numeric(T.cal)) 
-        stop("T.cal must be numeric and may not contain negative numbers.")
-    
-    
-    x <- rep(x, length.out = max.length)
-    t.x <- rep(t.x, length.out = max.length)
-    T.cal <- rep(T.cal, length.out = max.length)
-    
-    r <- params[1]
-    alpha <- params[2]
-    s <- params[3]
-    beta <- params[4]
-    
-    A0 <- 0
-    if (alpha >= beta) {
-        F1 <- hyperg_2F1(r + s + x, s + 1, r + s + x + 1, (alpha - beta)/(alpha + 
-            t.x))
-        F2 <- hyperg_2F1(r + s + x, s + 1, r + s + x + 1, (alpha - beta)/(alpha + 
-            T.cal))
-#        A0 <- F1/((alpha + t.x)^(r + s + x)) - F2/((alpha + T.cal)^(r + s + x))
-         X1 <- F1*((alpha+T.cal)/(alpha+t.x))^(r+x)*((beta+T.cal)/(alfa+t.x))^s
-         X2 <- F2*((beta+T.cal)/(alpha+T.cal))^s
- 
-    } else {
-        F1 <- hyperg_2F1(r + s + x, r + x, r + s + x + 1, (beta - alpha)/(beta + 
-            t.x))
-        F2 <- hyperg_2F1(r + s + x, r + x, r + s + x + 1, (beta - alpha)/(beta + 
-            T.cal))
-#       A0 <- F1/((beta + t.x)^(r + s + x)) - F2/((beta + T.cal)^(r + s + x))
-        X1 <- F1*((alpha+T.cal)/(beta+t.x))^(r+x)*((beta+T.cal)/(beta+t.x))^s
-        X2 <- F2*((alpha+T.cal)/(beta+T.cal))^(r+x)
-        return((1 + s/(r + s + x) * (X1-X2))^(-1))
-    }
-#    return((1 + s/(r + s + x) * (alpha + T.cal)^(r + x) * (beta + T.cal)^s * A0)^(-1))
-     return((1 + s/(r + s + x) * (X1-X2))^(-1))
-}
-
- 
