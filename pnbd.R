@@ -319,7 +319,7 @@ pnbd.PAlive <- function(params, x, t.x, T.cal) {
         F2 <- hyperg_2F1(r + s + x, s + 1, r + s + x + 1, (alpha - beta)/(alpha + 
             T.cal))
 #        A0 <- F1/((alpha + t.x)^(r + s + x)) - F2/((alpha + T.cal)^(r + s + x))
-         X1 <- F1*((alpha+T.cal)/(alpha+t.x))^(r+x)*((beta+T.cal)/(alfa+t.x))^s
+         X1 <- F1*((alpha+T.cal)/(alpha+t.x))^(r+x)*((beta+T.cal)/(alpha+t.x))^s
          X2 <- F2*((beta+T.cal)/(alpha+T.cal))^s
  
     } else {
